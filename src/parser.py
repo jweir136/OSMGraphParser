@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 class OSMGraphParser:
     def __init__(self, filename):
-        self.ways = []
+        self.roads = []
         self.VALID_ROADS = ["motorway", "trunk", "primary", "secondary", "tertiary", "unclassified", "residential"]
         buffer = ""
 
@@ -16,7 +16,7 @@ class OSMGraphParser:
                 if contains_way:
                     buffer = ""
                     if self._is_valid_road(contains_way.group(0)):
-                        self.ways.append(self._parse_way(contains_way.group(0)))
+                        self.roads.append(self._parse_way(contains_way.group(0)))
                 
     def _contains_way(self, buffer):
         way_reg = re.compile(r'<way [\s\S]*</way>')
@@ -38,5 +38,5 @@ class OSMGraphParser:
         return way_dict
 
 if __name__ == "__main__":
-    print(OSMGraphParser("test-data/map-2.osm").ways)
+    print(OSMGraphParser("test-data/map-2.osm").roads)
     
